@@ -1,0 +1,84 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cup of Calm — Digital Poster</title>
+  <meta name="description" content="Clickable poster with QR code for Cup of Calm" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { --brand:#2f855a; }
+    body { font-family: 'Poppins', system-ui, -apple-system, Roboto, 'Segoe UI', Arial, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-emerald-50 via-emerald-100 to-emerald-200 flex items-center justify-center p-4">
+  <!-- Card -->
+  <main id="poster" class="w-full max-w-md bg-white/90 backdrop-blur rounded-3xl shadow-2xl border border-emerald-200 overflow-hidden">
+    <!-- Header / Logo -->
+    <header class="px-6 pt-6 pb-3 text-center">
+      <div class="mx-auto mb-3 flex items-center justify-center gap-3">
+        <!-- Simple cup logo (SVG) -->
+        <svg aria-hidden="true" width="42" height="42" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-emerald-700">
+          <path d="M6 22c0 8 4 14 18 14s18-6 18-14" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M40 16h2a6 6 0 010 12h-3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M17 10c0 2-2 2-2 4s2 2 2 4M24 8c0 2-2 2-2 4s2 2 2 4M31 10c0 2-2 2-2 4s2 2 2 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h1 class="text-3xl font-extrabold tracking-tight text-emerald-800">Cup of Calm</h1>
+      </div>
+      <p class="text-emerald-900/70 text-sm">Scan or tap the button to open the website</p>
+    </header><!-- QR Code -->
+<section class="px-6 pb-4">
+  <div class="bg-white rounded-2xl border border-emerald-100 p-4 shadow-inner">
+    <!-- QR from a public API (high contrast, 600px). The same link is also below as a button. -->
+    <img
+      id="qr"
+      alt="QR to Cup of Calm website"
+      class="w-full aspect-square object-contain select-none"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&margin=10&data=https%3A%2F%2Fprkhari59-cmd.github.io%2FCup-of-calm%2F"
+    />
+  </div>
+  <p class="text-center text-xs text-emerald-900/60 mt-2">Tip: Long‑press the QR to save the poster image</p>
+</section>
+
+<!-- Action Button & URL -->
+<section class="px-6 pb-6 flex flex-col items-center gap-3">
+  <a
+    id="openLink"
+    href="https://prkhari59-cmd.github.io/my-fistpage-/"
+    target="_blank"
+    rel="noopener"
+    class="inline-flex items-center justify-center w-full rounded-2xl py-3 px-5 text-base font-semibold bg-emerald-700 text-white hover:bg-emerald-800 active:scale-[.99] shadow-lg shadow-emerald-700/20 transition"
+  >
+    Open Website
+  </a>
+  <div class="text-center">
+    <a href="https://prkhari59-cmd.github.io/my-fistpage-/" target="_blank" rel="noopener" class="text-sm text-emerald-800 underline break-all">https://prkhari59-cmd.github.io/my-fistpage-/</a>
+  </div>
+
+  <!-- Share (optional) -->
+  <button id="shareBtn" class="mt-1 text-xs text-emerald-900/70 underline">Share this poster</button>
+</section>
+
+  </main>  <script>
+    // Make entire poster tappable to open site (except when selecting text)
+    const poster = document.getElementById('poster');
+    const url = 'https://prkhari59-cmd.github.io/my-fistpage-/';
+    poster.addEventListener('click', (e) => {
+      const isClickable = e.target.closest('a, button, img');
+      if (!isClickable) window.open(url, '_blank');
+    });
+
+    // Web Share API (if available)
+    const shareBtn = document.getElementById('shareBtn');
+    if (navigator.share) {
+      shareBtn.addEventListener('click', async () => {
+        try {
+          await navigator.share({ title: 'Cup of Calm', text: 'Visit Cup of Calm', url });
+        } catch (err) { /* user cancelled */ }
+      });
+    } else {
+      shareBtn.style.display = 'none';
+    }
+  </script></body>
+</html>
